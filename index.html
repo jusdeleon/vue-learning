@@ -6,23 +6,37 @@
 <body>
 
     <div id="app">
-        <button @click="count++">Increment counter: {{ count }}</button>
+        <counter subject="Likes"></counter>
+        <counter subject="Dislikes"></counter>
     </div>
+
+    <template id="counter-template">
+        <h1>{{ subject }}</h1>
+        <button @click="count++">{{ count }}</button>
+    </template>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
 
     <script>
+        // Global component
+        Vue.component('counter', {
+            //template: "<button></button>" // OR: use template
+            template: '#counter-template',
+
+            // We need to specify which properties are accepted by the component.
+            props: ['subject'],
+
+            // Return a function because its a component
+            // Data is unique for every instance
+            data: function() {
+                return {
+                    count: 0
+                }
+            }
+        });
+
         new Vue({
-            el: "#app",
-            data: {
-                count: 0
-            },
-            // Or: inline (see above)
-            // methods: {
-            //     increment: function () {
-            //         this.count++;
-            //     }
-            // }
+            el: "#app"
         });
     </script>
 </body>
