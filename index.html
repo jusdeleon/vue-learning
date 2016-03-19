@@ -6,11 +6,7 @@
 <body>
 
     <div id="app">
-        <!-- <form v-on:submit.prevent="handleIt"> -->
-        <!-- Or: see bottom (shorthand) -->
-        <form @submit.prevent="handleIt">
-            <button type="submit">Submit me!</button>
-        </form>
+        <button @click="count++">Increment counter: {{ count }}</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
@@ -18,14 +14,15 @@
     <script>
         new Vue({
             el: "#app",
-            methods: {
-                handleIt: function (e) {
-                    alert('Handled!');
-
-                    // e.preventDefault();
-                    // Or: use .prevent instead, just like above
-                }
-            }
+            data: {
+                count: 0
+            },
+            // Or: inline (see above)
+            // methods: {
+            //     increment: function () {
+            //         this.count++;
+            //     }
+            // }
         });
     </script>
 </body>
