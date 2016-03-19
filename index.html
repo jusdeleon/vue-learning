@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue 1.0 Learning</title>
+</head>
+<body>
+
+    <div id="app">
+        <span>{{ message }}</span>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                message: "Hello World",
+            }
+        });
+    </script>
+</body>
+</html>
