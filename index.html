@@ -6,15 +6,22 @@
 <body>
 
     <div id="app">
-        <span>{{ message }}</span>
+        <div v-show="!message">
+            <p>You must enter a message!</p>
+        </div>
+        <div>
+            <textarea v-model="message"></textarea>
+        </div>
+        <input type="submit" value="Submit" v-show="message">
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
 
     <script>
         new Vue({
             el: "#app",
             data: {
-                message: "Hello World",
+                message: '',
             }
         });
     </script>
