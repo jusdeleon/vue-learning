@@ -6,37 +6,27 @@
 <body>
 
     <div id="app">
-        <counter subject="Likes"></counter>
-        <counter subject="Dislikes"></counter>
+        <h1>Skill: {{ skill }}</h1>
     </div>
-
-    <template id="counter-template">
-        <h1>{{ subject }}</h1>
-        <button @click="count++">{{ count }}</button>
-    </template>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
 
     <script>
-        // Global component
-        Vue.component('counter', {
-            //template: "<button></button>" // OR: use template
-            template: '#counter-template',
+        new Vue({
+            el: "#app",
+            data: {
+                points: 100
+            },
+            // This is reactive.
+            // If points were to change, the ret value will also change
+            computed: {
+                skill: function() {
+                    if (this.points <= 100)
+                        return 'Beginner';
 
-            // We need to specify which properties are accepted by the component.
-            props: ['subject'],
-
-            // Return a function because its a component
-            // Data is unique for every instance
-            data: function() {
-                return {
-                    count: 0
+                    return 'Advanced';
                 }
             }
-        });
-
-        new Vue({
-            el: "#app"
         });
     </script>
 </body>
