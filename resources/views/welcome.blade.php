@@ -5,7 +5,7 @@
     </head>
     <body>
         <div class="container">
-            <tasks list="{{ $tasks }}" inline-template>
+            <tasks inline-template>
                 <h1>My Tasks</h1>
                 <ul>
                     <li v-for="task in list">
@@ -14,13 +14,25 @@
                 </ul>
             </tasks>
         </div>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
         <script>
             Vue.component('tasks', {
-                props: ['list'],
+                data: function() {
+                    return {
+                        list: [],
+                    }
+                },
                 created: function () {
-                    this.list = JSON.parse(this.list);
+                    this.fetchTaskList();
+                },
+                methods: {
+                    fetchTaskList: function() {
+                        var vm = this;
+                        $.getJSON('/sandbox/vue-learning/public/api/tasks').then(function(tasks) {
+                            vm.list = tasks;
+                        });
+                    }
                 }
             });
 
