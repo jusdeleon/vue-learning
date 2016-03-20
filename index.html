@@ -8,16 +8,30 @@
 </head>
 <body>
 
+    <!-- Use components. Much readable and reusable -->
     <div id="app">
-        <ul>
-            <!-- You can pass the current task object to the method, or do the logic inline -->
-            <li :class="{completed: task.completed}" v-for="task in tasks" @click="toggle(task)">{{ task.name }}</li>
-        </ul>
+        <tasks :list="tasks"></tasks>
     </div>
+
+    <template id="tasks-template">
+        <ul>
+            <li :class="{completed: task.completed}" v-for="task in list" @click="toggle(task)">{{ task.name }}</li>
+        </ul>
+    </template>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
 
     <script>
+        Vue.component('tasks', {
+            template: "#tasks-template",
+            props: ['list'],
+            methods: {
+                toggle: function (task) {
+                    task.completed = !task.completed;
+                }
+            }
+        });
+
         new Vue({
             el: "#app",
             data: {
@@ -28,11 +42,6 @@
                     { name: 'Learn Vue.js', completed: false },
                 ],
             },
-            methods: {
-                toggle: function (task) {
-                    task.completed = !task.completed;
-                }
-            }
         });
     </script>
 </body>
