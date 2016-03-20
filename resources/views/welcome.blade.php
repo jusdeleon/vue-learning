@@ -14,8 +14,8 @@
                 </ul>
             </tasks>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
         <script>
             Vue.component('tasks', {
                 data: function() {
@@ -29,7 +29,7 @@
                 methods: {
                     fetchTaskList: function() {
                         var vm = this;
-                        $.getJSON('/sandbox/vue-learning/public/api/tasks').then(function(tasks) {
+                        this.$http.get('/sandbox/vue-learning/public/api/tasks', function(tasks) {
                             vm.list = tasks;
                         });
                     }
