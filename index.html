@@ -14,10 +14,18 @@
     </div>
 
     <template id="tasks-template">
-        <h1>My Tasks ({{remaining}})</h1>
-        <ul>
-            <li :class="{completed: task.completed}" v-for="task in list" @click="toggle(task)">{{ task.name }}</li>
+        <h1>My Tasks 
+            <span v-show="remaining">({{remaining}})</span>
+        </h1>
+        <ul v-show="list.length">
+            <li :class="{completed: task.completed}" v-for="task in list" @click="toggle(task)">
+                {{ task.name }}
+                <span @click="delete(task)">x</span>
+            </li>
         </ul>
+        <p v-else>You haven't created any task.</p>
+
+        <button @click="clearCompleted">Clear Completed</button>
     </template>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
@@ -29,6 +37,15 @@
             methods: {
                 toggle: function (task) {
                     task.completed = !task.completed;
+                },
+                delete: function (task) {
+                    // Vue helper
+                    this.list.$remove(task);
+                },
+                clearCompleted: function () {
+                    this.list = this.list.filter(function(task) {
+                        return ! task.completed;
+                    });
                 }
             },
             computed: {
