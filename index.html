@@ -14,6 +14,7 @@
     </div>
 
     <template id="tasks-template">
+        <h1>My Tasks ({{remaining}})</h1>
         <ul>
             <li :class="{completed: task.completed}" v-for="task in list" @click="toggle(task)">{{ task.name }}</li>
         </ul>
@@ -28,6 +29,13 @@
             methods: {
                 toggle: function (task) {
                     task.completed = !task.completed;
+                }
+            },
+            computed: {
+                remaining: function() {
+                    return this.list.filter(function(task) {
+                        return ! task.completed;
+                    }).length;
                 }
             }
         });
