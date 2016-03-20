@@ -2,26 +2,18 @@
 <html>
 <head>
     <title>Vue 1.0 Learning</title>
+    <style type="text/css">
+        .completed { text-decoration: line-through; }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <div v-for="plan in plans">
-            <!-- :{prop} means that it's accepting an object instead of a string -->
-            <!-- :{prop}.sync - Makes the active property of the component and the root instance in sync -->
-            <!-- inline-template is used instead of referencing a <template> tag with an ID -->
-            <plan :plan="plan" :active.sync="active" inline-template>
-                <div>
-                    <span>{{ plan.name }}</span>
-                    <span>{{ plan.price }}/month</span>
-                </div>
-                <button @click="setActivePlan" v-show="plan.name != active.name">
-                    {{ isUpgrade ? 'Upgrade' : 'Downgrade' }}
-                </button>
-                <span v-else>Current plan</span>
-            </plan>
-        </div>
-    </div>
 
+    <div id="app">
+        <ul>
+            <!-- You can pass the current task object to the method, or do the logic inline -->
+            <li :class="{completed: task.completed}" v-for="task in tasks" @click="toggle(task)">{{ task.name }}</li>
+        </ul>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
 
@@ -29,29 +21,18 @@
         new Vue({
             el: "#app",
             data: {
-                plans: [
-                    { name: 'Enterprise', price: 100 },
-                    { name: 'Pro', price: 50 },
-                    { name: 'Personal', price: 10 },
-                    { name: 'Free', price: 0 },
+                tasks: [
+                    { name: 'Go to the store', completed: false },
+                    { name: 'Get a haircut', completed: true },
+                    { name: 'See Civil War', completed: false },
+                    { name: 'Learn Vue.js', completed: false },
                 ],
-                active: {},
             },
-            components: {
-                plan: {
-                    props: ['plan', 'active'],
-                    computed: {
-                        isUpgrade: function() {
-                            return this.plan.price > this.active.price;
-                        }
-                    },
-                    methods: {
-                        setActivePlan: function() {
-                            this.active = this.plan;
-                        }
-                    }
+            methods: {
+                toggle: function (task) {
+                    task.completed = !task.completed;
                 }
-            },
+            }
         });
     </script>
 </body>
