@@ -5,7 +5,10 @@
   <title>Vue.js learning</title>
 </head>
 <body>
-  <message></message>
+
+  <!-- Explicit event -->
+  <message @new-message="handleNewMessage"></message>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.js"></script>
   <script>
     Vue.component('message', {
@@ -26,8 +29,17 @@
 
     new Vue({
       el: 'body',
-      events: {
-        'new-message': function(message) {
+
+      // Implicit
+      // events: {
+      //   'new-message': function(message) {
+      //     console.log('Parent is handling ' + message);
+      //   }
+      // }
+      
+      // Explicit
+      methods: {
+        handleNewMessage: function(message) {
           console.log('Parent is handling ' + message);
         }
       }
